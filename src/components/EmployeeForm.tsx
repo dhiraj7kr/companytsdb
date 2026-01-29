@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; // useState → to manage form state
+
+                                                    //useEffect → to update the form when editing an employee
 import { Employee } from "../types/Employee";
 
 interface EmployeeFormProps {

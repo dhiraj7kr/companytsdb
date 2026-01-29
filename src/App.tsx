@@ -8,11 +8,11 @@ const App: React.FC = () => {
   const API_URL = "https://localhost:44321/api/Employees";
 
   // --- State Management with Types ---
-  const [employees, setEmployees] = useState<Employee[]>([]);
-  const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null);
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 5;
+  const [employees, setEmployees] = useState<Employee[]>([]); //show user
+  const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null); //edit User
+  const [showModal, setShowModal] = useState<boolean>(false); //Form Popup
+  const [currentPage, setCurrentPage] = useState<number>(1); // which page I am viewing
+  const itemsPerPage = 5; // how  many employee each paginnation have
 
   // --- 1. Load Data ---
   useEffect(() => {
@@ -30,8 +30,8 @@ const App: React.FC = () => {
 
   // --- 2. Handlers for Modal ---
   const handleAddNew = () => {
-    setCurrentEmployee(null); // Clear form for new entry
-    setShowModal(true);       // Show Modal
+    setCurrentEmployee(null); // Clear form for new entry: clear any selected employee
+    setShowModal(true);       // Show Modal/Form
   };
 
   const handleEdit = (employee: Employee) => {
@@ -41,7 +41,7 @@ const App: React.FC = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setCurrentEmployee(null);
+    setCurrentEmployee(null); // Clears selected employee
   };
 
   // --- 3. CRUD Operations ---
@@ -52,10 +52,10 @@ const App: React.FC = () => {
         await axios.put(`${API_URL}/${employeeData.id}`, employeeData);
       } else {
         // CREATE
-        await axios.post(API_URL, employeeData);
+        await axios.post(API_URL, employeeData); //axios.post → HTTP POST request (create) and employeeData → The new employee object, await → Wait for response, 
       }
       await fetchEmployees(); // Refresh List
-      handleCloseModal();     // Close Modal
+      handleCloseModal();     // Close Modal(form)
     } catch (error) {
       console.error("Error saving employee:", error);
       alert("Error saving data. Check console.");
